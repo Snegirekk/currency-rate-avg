@@ -26,7 +26,9 @@ final class CurrencyPair
      */
     public function __construct(string $from, string $to)
     {
-        if ($from === $to) {
+        if (strlen($from) !== 3 || strlen($to) !== 3) {
+            throw CurrencyException::onInvalidCurrencyAbbreviation($from, $to);
+        } elseif ($from === $to) {
             throw CurrencyException::onSameCurrenciesInPair($from);
         }
 

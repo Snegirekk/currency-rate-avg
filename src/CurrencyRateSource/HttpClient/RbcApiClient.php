@@ -22,8 +22,8 @@ class RbcApiClient extends CurrencyRateApiClient
         return $this->doGet('cash/json/converter_currency_rate', [
             'source'        => 'cbrf',
             'sum'           => 1,
-            'currency_from' => $pair->getFrom(),
-            'currency_to'   => $pair->getTo(),
+            'currency_from' => strtoupper($pair->getFrom()),
+            'currency_to'   => strtoupper($pair->getTo()),
             'date'          => $date->format('Y-m-d'),
         ]);
     }

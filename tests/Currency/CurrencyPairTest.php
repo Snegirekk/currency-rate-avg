@@ -9,9 +9,15 @@ use PHPUnit\Framework\TestCase;
 
 class CurrencyPairTest extends TestCase
 {
-    public function testInvalidArgument()
+    public function testSameCurrencies()
     {
         $this->expectException(CurrencyException::class);
         new CurrencyPair(Currency::USD, Currency::USD);
+    }
+
+    public function testBadCurrencyName()
+    {
+        $this->expectException(CurrencyException::class);
+        new CurrencyPair(Currency::USD, 'USUDE');
     }
 }
