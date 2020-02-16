@@ -1,0 +1,28 @@
+{
+    "name": "snegirekk/currency-rate-avg",
+    "description": "Currency rate average provider, uses some external services.",
+    "version": "1.0.0-alpha",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Snegirekk",
+            "email": "zlobin.n.s@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "CurrencyRate\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "CurrencyRate\\Tests\\": "tests/"
+        }
+    }
+}
