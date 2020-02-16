@@ -1,0 +1,16 @@
+{
+  "status": 200,
+  "meta": {
+    "sum_deal": 1.0,
+    "source": "cbrf",
+    "currency_from": "EUR",
+    "date": "2020-02-29",
+    "currency_to": "RUR"
+  },
+  "data": {
+    "date": "2020-02-29",
+    "sum_result": 68.771,
+    "rate1": 68.771,
+    "rate2": 0.0145
+  }
+}
