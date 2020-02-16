@@ -5,6 +5,7 @@ namespace CurrencyRate\CurrencyRateSource;
 use CurrencyRate\Currency\CurrencyPair;
 use CurrencyRate\Currency\CurrencyRate;
 use CurrencyRate\CurrencyRateSource\HttpClient\CurrencyRateApiClientInterface;
+use CurrencyRate\Exception\ApiClientException;
 use DateTime;
 
 class RbcRateSource implements CurrencyRateSourceInterface
@@ -30,7 +31,16 @@ class RbcRateSource implements CurrencyRateSourceInterface
     public function provide(CurrencyPair $pair, DateTime $date): CurrencyRate
     {
         $response = $this->apiClient->getRate($pair, $date);
-        $data     = json_decode($response->getBody()->getContents(), true);
+
+        if ($response->getStatusCode() !== 200) {
+            throw ApiClientException::onNonSuccessResponce();
+        }
+
+        $data = json_decode($response->getBody()->getContents(), true);
+
+        if (!isset($data['data']['rate1'])) {
+            throw ApiClientException::onBadResponseBody();
+        }
 
         return new CurrencyRate($pair, $data['data']['rate1']);
     }

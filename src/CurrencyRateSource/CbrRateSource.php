@@ -5,7 +5,9 @@ namespace CurrencyRate\CurrencyRateSource;
 use CurrencyRate\Currency\CurrencyPair;
 use CurrencyRate\Currency\CurrencyRate;
 use CurrencyRate\CurrencyRateSource\HttpClient\CurrencyRateApiClientInterface;
+use CurrencyRate\Exception\ApiClientException;
 use DateTime;
+use Exception;
 use SimpleXMLElement;
 
 class CbrRateSource implements CurrencyRateSourceInterface
@@ -31,7 +33,16 @@ class CbrRateSource implements CurrencyRateSourceInterface
     public function provide(CurrencyPair $pair, DateTime $date): CurrencyRate
     {
         $response = $this->apiClient->getRate($pair, $date);
-        $data     = new SimpleXMLElement($response->getBody()->getContents());
+
+        if ($response->getStatusCode() !== 200) {
+            throw ApiClientException::onNonSuccessResponce();
+        }
+
+        try {
+            $data = new SimpleXMLElement($response->getBody()->getContents());
+        } catch (Exception $exception) {
+            throw ApiClientException::onBadResponseBody();
+        }
 
         foreach ($data->children() as $item) {
             if ((string) $item->CharCode === $pair->getFrom()) {
@@ -40,7 +51,7 @@ class CbrRateSource implements CurrencyRateSourceInterface
             }
         }
 
-        // TODO: throw exception
+        throw ApiClientException::onBadResponseBody();
     }
 
     /**

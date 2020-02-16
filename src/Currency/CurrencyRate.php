@@ -2,6 +2,8 @@
 
 namespace CurrencyRate\Currency;
 
+use CurrencyRate\Exception\CurrencyException;
+
 final class CurrencyRate
 {
     /**
@@ -19,11 +21,17 @@ final class CurrencyRate
      *
      * @param CurrencyPair $currencyPair
      * @param float        $value
+     *
+     * @throws CurrencyException
      */
     public function __construct(CurrencyPair $currencyPair, float $value)
     {
+        if ($value <= 0) {
+            throw CurrencyException::onInvalidRateValue($value);
+        }
+
         $this->currencyPair = $currencyPair;
-        $this->value        = $value; // TODO: throw exception if value is less or equal to zero, add test
+        $this->value        = $value;
     }
 
     /**

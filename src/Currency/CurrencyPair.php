@@ -2,6 +2,8 @@
 
 namespace CurrencyRate\Currency;
 
+use CurrencyRate\Exception\CurrencyException;
+
 final class CurrencyPair
 {
     /**
@@ -19,9 +21,15 @@ final class CurrencyPair
      *
      * @param string $from
      * @param string $to
+     *
+     * @throws CurrencyException
      */
     public function __construct(string $from, string $to)
     {
+        if ($from === $to) {
+            throw CurrencyException::onSameCurrenciesInPair($from);
+        }
+
         $this->from = $from;
         $this->to   = $to;
     }

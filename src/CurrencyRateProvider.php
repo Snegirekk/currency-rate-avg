@@ -5,6 +5,8 @@ namespace CurrencyRate;
 use CurrencyRate\Currency\CurrencyPair;
 use CurrencyRate\Currency\CurrencyRate;
 use CurrencyRate\CurrencyRateSource\CurrencyRateSourceInterface;
+use CurrencyRate\Exception\ApiClientException;
+use CurrencyRate\Exception\CurrencyRateProviderException;
 use DateTime;
 
 class CurrencyRateProvider
@@ -29,12 +31,17 @@ class CurrencyRateProvider
      * @param DateTime|null $date
      *
      * @return CurrencyRate
+     *
+     * @throws ApiClientException
+     * @throws CurrencyRateProviderException
      * @noinspection PhpDocMissingThrowsInspection
      */
     public function getAverage(CurrencyPair $pair, DateTime $date = null): CurrencyRate
     {
         if (is_null($date)) {
             $date = new DateTime();
+        } elseif ($date > new DateTime()) {
+            throw CurrencyRateProviderException::onInvalidDate();
         }
 
         $sum   = 0.0000;
