@@ -19,7 +19,7 @@ class CbrApiClient extends CurrencyRateApiClient
      */
     public function getRate(CurrencyPair $pair, DateTime $date): ResponseInterface
     {
-        return $this->doGet('development/SXML', [
+        return $this->doGet('scripts/XML_daily_eng.asp', [
             'date_req' => $date->format('d/m/Y'),
         ]);
     }
