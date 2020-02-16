@@ -2,6 +2,7 @@
 
 namespace CurrencyRate\CurrencyRateSource;
 
+use CurrencyRate\Currency\Currency;
 use CurrencyRate\Currency\CurrencyPair;
 use CurrencyRate\Currency\CurrencyRate;
 use CurrencyRate\CurrencyRateSource\HttpClient\CurrencyRateApiClientInterface;
@@ -59,6 +60,6 @@ class CbrRateSource implements CurrencyRateSourceInterface
      */
     public function supports(CurrencyPair $pair): bool
     {
-        // TODO: Implement supports() method.
+        return $pair->getTo() === Currency::RUR;
     }
 }

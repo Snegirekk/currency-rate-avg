@@ -50,6 +50,6 @@ class RbcRateSource implements CurrencyRateSourceInterface
      */
     public function supports(CurrencyPair $pair): bool
     {
-        // TODO: Implement supports() method.
+        return true;
     }
 }

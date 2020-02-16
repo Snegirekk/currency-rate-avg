@@ -48,6 +48,10 @@ class CurrencyRateProvider
         $count = 0;
 
         foreach ($this->sources as $source) {
+            if (!$source->supports($pair)) {
+                continue;
+            }
+
             $rate = $source->provide($pair, $date);
 
             $sum += $rate->getValue();
