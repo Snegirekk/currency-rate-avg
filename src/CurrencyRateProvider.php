@@ -3,10 +3,11 @@
 namespace CurrencyRate;
 
 use CurrencyRate\Currency\CurrencyPair;
+use CurrencyRate\Currency\CurrencyRate;
 use CurrencyRate\CurrencyRateSource\CurrencyRateSourceInterface;
 use DateTime;
 
-class CurrencyRate
+class CurrencyRateProvider
 {
     /**
      * @var CurrencyRateSourceInterface[]
@@ -14,7 +15,7 @@ class CurrencyRate
     private $sources;
 
     /**
-     * CurrencyRate constructor.
+     * CurrencyRateProvider constructor.
      *
      * @param CurrencyRateSourceInterface[] $sources
      */
@@ -27,10 +28,10 @@ class CurrencyRate
      * @param CurrencyPair  $pair
      * @param DateTime|null $date
      *
-     * @return float
+     * @return CurrencyRate
      * @noinspection PhpDocMissingThrowsInspection
      */
-    public function getAverage(CurrencyPair $pair, DateTime $date = null): float
+    public function getAverage(CurrencyPair $pair, DateTime $date = null): CurrencyRate
     {
         if (is_null($date)) {
             $date = new DateTime();
@@ -40,10 +41,14 @@ class CurrencyRate
         $count = 0;
 
         foreach ($this->sources as $source) {
-            $sum += $source->provide($pair, $date);
+            $rate = $source->provide($pair, $date);
+
+            $sum += $rate->getValue();
             ++$count;
         }
 
-        return round($sum / $count, 4);
+        $average = round($sum / $count, 4);
+
+        return new CurrencyRate($pair, $average);
     }
 }

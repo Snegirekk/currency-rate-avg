@@ -3,6 +3,7 @@
 namespace CurrencyRate\CurrencyRateSource;
 
 use CurrencyRate\Currency\CurrencyPair;
+use CurrencyRate\Currency\CurrencyRate;
 use DateTime;
 
 interface CurrencyRateSourceInterface
@@ -11,9 +12,9 @@ interface CurrencyRateSourceInterface
      * @param CurrencyPair $pair
      * @param DateTime     $date
      *
-     * @return float
+     * @return CurrencyRate
      */
-    public function provide(CurrencyPair $pair, DateTime $date): float;
+    public function provide(CurrencyPair $pair, DateTime $date): CurrencyRate;
 
     /**
      * @param CurrencyPair $pair
