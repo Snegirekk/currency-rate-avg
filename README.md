@@ -47,7 +47,7 @@ echo $rate->getValue(); // 16.3597
 echo (string) $rate; // EUR/RUR: 16.3597
 ```
 
-Fill free to implement `\CurrencyRate\CurrencyRateSource\CurrencyRateSourceInterface` and add it to provider.
+Feel free to implement `\CurrencyRate\CurrencyRateSource\CurrencyRateSourceInterface` and add it to provider.
 
 #### Usage example with Symfony
 Register factory, sources and provider in `services.yaml`, then autowire provider in your services or controllers to make things:
