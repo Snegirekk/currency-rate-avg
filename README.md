@@ -16,7 +16,7 @@ First add a repo into your `composer.json`:
 ```
 Then add the library to the project:
 ```shell script
-$ composer require snegirekk/currency-rate-avg 1.0.0-alpha
+$ composer require snegirekk/currency-rate-avg
 ```
 
 #### Usage
