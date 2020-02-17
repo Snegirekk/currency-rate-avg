@@ -1,7 +1,7 @@
 {
     "name": "snegirekk/currency-rate-avg",
     "description": "Currency rate average provider, uses some external services.",
-    "version": "1.0.0-alpha",
+    "version": "1.0.0",
     "type": "library",
     "authors": [
         {
